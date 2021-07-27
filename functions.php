@@ -5,6 +5,11 @@ function dbConnect()
   return $db;
 }
 
+// function untuk query menambah data ke tabel barang
+function tambahBarang ($kodeBarang, $namaBarang, $harga, $stok) {
+  return "INSERT INTO barang(kode_barang, nama_barang, harga, stok) VALUES ('$kodeBarang', '$namaBarang', '$harga', '$stok') ";
+}
+
 function nav($title)
 {
 ?>
