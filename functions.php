@@ -10,6 +10,12 @@ function tambahBarang ($kodeBarang, $namaBarang, $harga, $stok) {
   return "INSERT INTO barang(kode_barang, nama_barang, harga, stok) VALUES ('$kodeBarang', '$namaBarang', '$harga', '$stok') ";
 }
 
+//function untuk query mengambil data barang yang stok=0
+function getDataBarangKosong() {
+  $db = dbConnect();
+  $sql = "SELECT * FROM barang WHERE stok=0";
+  return $db->query($sql);
+}
 function nav($title)
 {
 ?>
