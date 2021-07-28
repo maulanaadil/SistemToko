@@ -13,10 +13,8 @@ require('functions.php');
     <title>Login</title>
   </head>
 <body>
- 
 	
- 
-	<?php
+<?php
 if (isset($_GET["error"])) {
 $error = $_GET["error"];
 if ($error == 1)
