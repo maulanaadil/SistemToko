@@ -47,6 +47,14 @@ function getDataBarang($kode)
   return $db->query($sql);
 }
 
+//function untuk query mengambil data barang yang stok=0
+function getDataBarangKosong()
+{
+  $db = dbConnect();
+  $sql = "SELECT * FROM barang WHERE stok=0";
+  return $db->query($sql);
+}
+
 function nav($title)
 {
 ?>
