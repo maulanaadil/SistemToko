@@ -5,6 +5,14 @@ function dbConnect()
   return $db;
 }
 
+function showError($message)
+	{ ?>
+	<div class="alert alert-danger" role="alert">
+	<?php echo $message; ?>
+	</div>
+<?php
+}
+
 // function untuk query menambah data ke tabel barang
 function tambahBarang($kodeBarang, $namaBarang, $harga, $stok)
 {
