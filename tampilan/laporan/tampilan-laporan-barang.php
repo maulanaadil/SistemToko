@@ -15,9 +15,10 @@ dbConnect();
     <title>Laporan Barang Kosong</title>
 </head>
 <body>
-<h5>Laporan Data Barang Kosong</h5>
+
 <div class="row mt-3">
 <center>
+<h5>Laporan Data Barang Kosong</h5><br>
     <table class="table table-bordered" style="width: auto;">
         <thead>
             <tr>

@@ -85,7 +85,7 @@ function nav($title)
             <a class="nav-link <?php echo ($title == "Data Barang" ? "active" : ""); ?>" href="tampilan-barang.php">Barang</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($title == "Data Pegawai" ? "active" : ""); ?>" href="#">Pegawai</a>
+            <a class="nav-link <?php echo ($title == "Data Laporan" ? "active" : ""); ?>" href="tampilan-laporan-barang.php">Laporan</a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?php echo ($title == "Data Transaksi" ? "active" : ""); ?>" href="#">Transaksi</a>
