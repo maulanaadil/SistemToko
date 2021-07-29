@@ -63,6 +63,43 @@ function getDataBarangKosong()
   return $db->query($sql);
 }
 
+//function untuk ambil data barang berdasarkan namaBarang
+function getShowBarang()
+{
+  $db = dbConnect();
+  $sql = "SELECT * FROM barang ORDER BY nama_barang";
+  return $db->query($sql);
+}
+//function untuk menampilkan data barang berdasarkan id_barang
+function getShowSelectedBarang()
+{
+  $db = dbConnect();
+  $sql = "SELECT * FROM barang WHERE kode_barang='$_GET[id]'";
+  return $db->query($sql);
+}
+
+//function insert detail transaksi ke database
+function tambahDetailTransaksi($kodeBarang, $jumlahBarang, $total)
+{
+  return "INSERT INTO detail_transaksi (kode_barang, jml_beli, total) VALUES ('$kodeBarang', '$jumlahBarang', '$total')";
+}
+
+//function insert data transaksi ke database
+function tambahTransaksi($id_pegawai, $tanggalTransaksi)
+{
+  return "INSERT INTO transaksi (id_pegawai, tgl_transaksi) VALUES ('$id_pegawai', '$tanggalTransaksi')";
+}
+
+//function untuk ambil data data transaksi
+function getDataTransaksi()
+{
+  $db = dbConnect();
+  $sql = "SELECT * FROM pegawai NATURAL JOIN transaksi NATURAL JOIN detail_transaksi
+				 NATURAL JOIN barang";
+  return $db->query($sql);
+}
+
+
 function nav($title)
 {
 ?>
@@ -88,7 +125,7 @@ function nav($title)
             <a class="nav-link <?php echo ($title == "Data Laporan" ? "active" : ""); ?>" href="tampilan-laporan-barang.php">Laporan</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php echo ($title == "Data Transaksi" ? "active" : ""); ?>" href="#">Transaksi</a>
+            <a class="nav-link <?php echo ($title == "Data Transaksi" ? "active" : ""); ?>" href="tampilan-transaksi.php">Transaksi</a>
           </li>
         </ul>
       </div>
