@@ -18,6 +18,8 @@ if(isset($_POST['tblSimpan'])) {
     $sql = tambahDetailTransaksi($kodeBarang,$jumlahBarang,$total);
     $res = $db->query($sql);
 	
+	$sql = updateStokBarang($kodeBarang);
+    $res = $db->query($sql);
 	
 
     if ($db->affected_rows > 0) {
@@ -30,7 +32,7 @@ if(isset($_POST['tblSimpan'])) {
     } else {
         echo '<div class="alert alert-danger" role="alert" align="center">
                 <h4 class="alert-heading">Warning!</h4>
-                <p>Gagal Tambah Barang, Cek Kembali ID Menu</p>
+                <p>Gagal Menambahkan Barang</p>
                 <a href="javascript:history.back()" class="btn btn-danger">Kembali</a>
                </div>';
     }
