@@ -124,6 +124,24 @@ function updateUbahBarang($kode_barang, $jumlah, $updateTotal, $updateStok, $id_
 				  AND detail_transaksi.id_transaksi='$id_transaksi'";
 }
 
+//function hapus transaksi
+function getHapusTransaksi($id_transaksi)
+{
+  $db = dbConnect();
+
+  $sql = "DELETE transaksi.*, detail_transaksi.* FROM transaksi, detail_transaksi WHERE transaksi.id_transaksi = detail_transaksi.id_transaksi
+					  AND transaksi.id_transaksi = '$id_transaksi'";
+  return $delete = $db->query($sql);  
+
+  if ($delete) {
+    mysqli_close($db);
+	header("location: tampilan-barang.php");
+    exit;
+  } else {
+    echo "Penghapusan Transaksi Gagal";
+  }
+}
+
 
 function nav($title)
 {
