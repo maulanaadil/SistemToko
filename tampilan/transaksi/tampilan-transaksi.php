@@ -36,7 +36,7 @@ $data = getDataTransaksi()->fetch_all(MYSQLI_ASSOC);
 						<td><?= $row['total']; ?></td>
                         <td align="center">
                             <a href="tampilan-ubah-transaksi.php?id_transaksi=<?= $row['id_transaksi']; ?>" class="btn btn-primary">Ubah</a>
-                            <a href="tampilan-hapus-barang.php?kode_barang=<?= $row['kode_barang']; ?>" class="btn btn-danger">Hapus</a>
+                            <a href="hapus-transaksi.php?id_transaksi=<?= $row['id_transaksi']; ?>" class="btn btn-danger">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach ?>

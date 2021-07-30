@@ -41,7 +41,7 @@ nav("Transaksi");
                     <td></td>
                     <td align="right">
                         <a href="tampilan-barang.php" class="btn btn-secondary">Batal</a>
-                        <input type="submit" name="tblSimpan" value="Simpan" class="btn btn-success">
+                        <input type="submit" name="tblSimpan" value="Tambah" class="btn btn-success">
                     </td>
                 </tr>
             </table>
