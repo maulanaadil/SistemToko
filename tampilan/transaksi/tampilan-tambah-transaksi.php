@@ -37,7 +37,7 @@ sidebar();
                     <input type="text" name="txt_jumlah" class="form-control" placeholder="jumlah">
                 </td>
                 <td>
-                    <i class="btn btn-xs btn-success" id="add-menu"><i class="icon icon-plus"></i></i>
+                    <i class="btn btn-success" id="add-menu"><i class="icon icon-plus"></i></i>
                 </td>
             <tr>
                 <table class="table table-bordered">
