@@ -5,33 +5,54 @@ require('../../functions.php');
 nav("Tambah Transaksi");
 $db = dbConnect();
 if(isset($_POST['tblSimpan'])) {
-    $kodeBarang = $db->escape_string($_POST['id']);
-    $jumlahBarang = $db->escape_string($_POST['jumlah']);
+    $transaksi = ($_POST['kode_barang']);
     $harga = $db->escape_string($_POST['harga']);
-	$total = ((int)$harga) * ((int)$jumlahBarang);
+    $jumlah = ($_POST['jumlah']);
+    $jumlahTransaksi = $db->escape_string($_POST['jumlah_transaksi']);
+	$total = $db->escape_string($_POST['total_harga']);
 	$tanggalTransaksi=date('Y-m-d');
-	$id_pegawai = $_SESSION["id_pegawai"];
 	
-	$sqll = tambahTransaksi($id_pegawai, $tanggalTransaksi);
-	$ress = $db->query($sqll);
+	$queryTransaksi = tambahTransaksi($id_pegawai, $tanggalTransaksi, $jumlahTransaksi, $total);
 
-    $sql = tambahDetailTransaksi($kodeBarang,$jumlahBarang,$total);
-    $res = $db->query($sql);
+    // $sql = tambahDetailTransaksi($kodeBarang,$jumlahBarang,$total);
+    // $res = $db->query($sql);
 	
-	
+	if(mysqli_query($db, $queryTransaksi)){
+        if($db->affected_rows > 0) {
+            $query = "SELECT id_transaksi FROM transaksi ORDER BY tgl_transaksi DESC";
+            $data = mysqli_query($db, $query);
+            $row = mysqli_fetch_array($data);
+            $trs = $row['id_transaksi'];
 
-    if ($db->affected_rows > 0) {
+            $count = count($transaksi);
 
-        echo '<div class="alert alert-success" role="alert" align="center">
-        <h4 class="alert-heading">Well done!</h4>
-        <p>Berhasil Menambahkan Transaksi</p>
-        <a href="tampilan-transaksi.php" class="btn btn-primary">Kembali</a>
-        </div>';
-    } else {
-        echo '<div class="alert alert-danger" role="alert" align="center">
-                <h4 class="alert-heading">Warning!</h4>
-                <p>Gagal Tambah Barang, Cek Kembali ID Menu</p>
-                <a href="javascript:history.back()" class="btn btn-danger">Kembali</a>
-               </div>';
+            for($i = 0; $i < $count; $i++){
+                $data = array ('id_transaksi' => $trs,
+                'kode_barang' => $transaksi[$i],
+                'jml_beli' => $jumlah[$i],
+            );
+
+                $idTransaksi = $data['id_transaksi'];
+                $kodeBarang = $data['kode_barang'];
+                $jml = $data['jml_beli'];
+
+                $queryTransaksi = tambahDetailTransaksi($idTransaksi, $kodeBarang, $jmlBeli);
+                $queryUpdateStokBarang = updateStokBarang($kodeBarang, $jml);
+                mysqli_query($db, $queryTransaksi);
+                mysqli_query($db, $queryUpdateStokBarang);
+            }
+            if($db->affected_rows>0){
+                echo 1;
+            }else{
+                echo 0;
+            }
+
+        }else{
+            echo 0;
+        }
+    }else{
+        echo 0;
     }
+}else {
+    echo 0;
 }

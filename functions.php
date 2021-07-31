@@ -48,6 +48,7 @@ function getBarang()
   return $db->query($sql);
 }
 
+//function untuk query mengambil data barang untuk form edit barang
 function getDataBarang($kode)
 {
   $db = dbConnect();
@@ -78,16 +79,21 @@ function getShowSelectedBarang()
   return $db->query($sql);
 }
 
-//function insert detail transaksi ke database
-function tambahDetailTransaksi($kodeBarang, $jumlahBarang, $total)
+//function insert data transaksi ke database
+function tambahTransaksi($idPegawai, $tanggalTransaksi, $jumlahTransaksi, $total)
 {
-  return "INSERT INTO detail_transaksi (kode_barang, jml_beli, total) VALUES ('$kodeBarang', '$jumlahBarang', '$total')";
+  return "INSERT INTO transaksi(id_pegawai, tanggal_transaksi, jumlah_transaksi)";
 }
 
-//function insert data transaksi ke database
-function tambahTransaksi($id_pegawai, $tanggalTransaksi)
+//function insert detail transaksi ke database
+function tambahDetailTransaksi($idTransaksi, $kodeBarang, $jmlBeli)
 {
-  return "INSERT INTO transaksi (id_pegawai, tgl_transaksi) VALUES ('$id_pegawai', '$tanggalTransaksi')";
+  return "INSERT INTO detail_transaksi(id_transaksi, kode_barang, jml_beli)";
+}
+
+//function query update stok barang
+function updateStokBarang($kodeBarang, $stok) {
+  return "UPDATE barang SET stok = stok - '$stok' WHERE kode_barang = '$kodeBarang' ";
 }
 
 //function untuk ambil data data transaksi
@@ -108,8 +114,13 @@ function nav($title)
 
   <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="../../style.css">
 
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://kit.fontawesome.com/f26d8b4cf2.js" crossorigin="anonymous"></script>
     <title><?php echo $title ?></title>
   </head>
 
