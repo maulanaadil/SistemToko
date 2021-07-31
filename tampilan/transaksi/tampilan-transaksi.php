@@ -9,6 +9,10 @@ $data = getDataTransaksi()->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <body>
+
+
+
+
     <div class="mt-4" align="center">
         <h1>Data Transaksi</h1>
     </div>
