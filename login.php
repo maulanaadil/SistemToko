@@ -30,7 +30,7 @@ if($cek > 0)
 		$_SESSION["nama_pegawai"] = $data["nama_pegawai"];
 		$_SESSION["jabatan"] = $data["jabatan"];
 		// alihkan ke halaman dashboard admin
-		header("location:#");
+		header("location:tampilan/barang/tampilan-barang.php");
 
 }else
 {   //alihkan ke index

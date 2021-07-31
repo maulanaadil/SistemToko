@@ -2,10 +2,13 @@
 require('../../functions.php');
 
 nav("Hapus Barang");
+
+sidebar();
 dbConnect();
 ?>
 
 <body>
+    <div class="content-wrapper">
     <?php
     if (isset($_GET['kode_barang'])) {
         $kode_barang = dbConnect()->escape_string($_GET['kode_barang']);

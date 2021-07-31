@@ -1,4 +1,5 @@
 <?php
+
 function dbConnect()
 {
   $db = new mysqli("localhost", "root", "", "db_toko");
@@ -158,6 +159,10 @@ function getHapusTransaksi($id_transaksi)
 
 function nav($title)
 {
+  session_start();
+ if (!isset($_SESSION["id_pegawai"])) {
+     header("Location: ../../index.php?error=4");
+ }
 ?>
   <!DOCTYPE html>
   <html>
@@ -165,16 +170,46 @@ function nav($title)
   <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-<!--    <link rel="stylesheet" href="../../style.css">-->
+    <!--    <link rel="stylesheet" href="../../style.css">-->
 
     <script src="https://code.jquery.com/jquery.min.js"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script src="https://kit.fontawesome.com/f26d8b4cf2.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/f26d8b4cf2.js" crossorigin="anonymous"></script>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../plugins/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
     <title><?php echo $title ?></title>
   </head>
 
-  <nav class="navbar navbar-expand sticky-top navbar-dark" style="background-color: #293949">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="../../Logout.php">
+          <span class="fa fa-sign-out-alt"></span>Logout
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- <nav class="navbar navbar-expand sticky-top navbar-dark" style="background-color: #293949">
     <div class="container-fluid">
       <a class="navbar-brand">Toko Sembako Mutiara</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -191,7 +226,83 @@ function nav($title)
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> -->
 <?php
+}
+
+function sidebar()
+{
+  ?>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img href=".png">
+      <span class="brand-text font-weight-light">Toko Sembako Mutiara</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info" data-widget="treeview">
+          <a class="d-block"> <span class="fa fa-user mr-3"></span>Halo, <?php echo $_SESSION["nama_pegawai"] ?></a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="../barang/tampilan-barang.php" class="nav-link <?php echo ($judul == 'Data Barang' ? "active" : "") ?>">
+              <i class="nav-icon fas fa-box"></i>
+              <p>
+                Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../transaksi/tampilan-transaksi.php" class="nav-link <?php echo ($judul == "Transaksi" ? "active" : "") ?>">
+              <i class="nav-icon fas fa-shopping-cart"></i>
+              <p>
+                Transaksi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../laporan/tampilan-laporan-barang.php" class="nav-link <?php echo ($judul == "Laporan Barang Kosong" ? "active" : "") ?>">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Laporan
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- AdminLTE App -->
+<script src="../../plugins/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../../plugins/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../plugins/js/demo.js"></script>
+  <?php
 }
 ?>

@@ -2,10 +2,13 @@
 require('../../functions.php');
 
 nav("Hapus Transaksi");
+
+sidebar();
 dbConnect();
 ?>
 
 <body>
+    <div class="content-wrapper">
     <?php
     if (isset($_GET['id_transaksi'])) {
         $id_transaksi = dbConnect()->escape_string($_GET['id_transaksi']);

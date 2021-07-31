@@ -2,44 +2,42 @@
 require('../../functions.php');
 
 nav("Laporan Barang Kosong");
+
+sidebar();
 dbConnect();
  $data = getDataBarangKosong()->fetch_all(MYSQLI_ASSOC);
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Barang Kosong</title>
-</head>
 <body>
 
-<div class="row mt-3">
-<center>
-<h5>Laporan Data Barang Kosong</h5><br>
-    <table class="table table-bordered" style="width: auto;">
-        <thead>
-            <tr>
-                <th scope="col">Kode Barang</th>
-                <th scope="col">Nama Barang</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Stok</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($data as $row) : ?>
-            <tr>
-                <th><?= $row["kode_barang"]; ?></th>
-                <td><?= $row["nama_barang"]; ?></td>
-                <td><?= $row["harga"]; ?></td>
-                <td><?= $row["stok"]; ?></td>
-            </tr>
-        <?php endforeach ?>
-        </tbody>
-    </table>
-</center>
+<div class="content-wrapper">
+    <div class="content-header"></div>
+    <section class="content">
+        <div class="row mt-3">
+        <center>
+        <h5>Laporan Data Barang Kosong</h5><br>
+            <table class="table table-bordered table-striped"style="width: auto;">
+                <thead>
+                    <tr class="bg-dark text-white">
+                        <td scope="col">Kode Barang</td>
+                        <td scope="col">Nama Barang</td>
+                        <td scope="col">Harga</td>
+                        <td scope="col">Stok</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($data as $row) : ?>
+                    <tr>
+                        <td><?= $row["kode_barang"]; ?></td>
+                        <td><?= $row["nama_barang"]; ?></td>
+                        <td><?= $row["harga"]; ?></td>
+                        <td><?= $row["stok"]; ?></td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </center>
+        </div>
+    </section>
 </div>
 </body>
 </html>
