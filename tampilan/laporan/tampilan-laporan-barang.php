@@ -12,9 +12,9 @@ dbConnect();
 <div class="content-wrapper">
     <div class="content-header"></div>
     <section class="content">
-        <div class="row mt-3">
+        <div class="row">
         <center>
-        <h5>Laporan Data Barang Kosong</h5><br>
+        <h2>Laporan Data Barang Kosong</h2><br>
             <table class="table table-bordered table-striped"style="width: auto;">
                 <thead>
                     <tr class="bg-dark text-white">
