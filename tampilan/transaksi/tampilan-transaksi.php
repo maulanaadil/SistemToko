@@ -40,7 +40,6 @@ $data = getDataTransaksi()->fetch_all(MYSQLI_ASSOC);
                         <td><?= $row['jt']; ?></td>
                         <td><?= $row['t']; ?></td>
                         <td align="center">
-                            <a href="tampilan-ubah-transaksi.php?id_transaksi=<?= $row['it']; ?>" class="btn btn-primary">Ubah</a>
                             <a href="hapus-transaksi.php?id_transaksi=<?= $row['it']; ?>" class="btn btn-danger">Hapus</a>
                         </td>
                     </tr>
