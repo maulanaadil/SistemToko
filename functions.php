@@ -82,13 +82,13 @@ function getShowSelectedBarang()
 //function insert data transaksi ke database
 function tambahTransaksi($idPegawai, $tanggalTransaksi, $jumlahTransaksi, $total)
 {
-  return "INSERT INTO transaksi(id_pegawai, tanggal_transaksi, jumlah_transaksi)";
+  return "INSERT INTO transaksi (id_pegawai, tgl_transaksi, jumlah_transaksi, total) VALUES ('$idPegawai', '$tanggalTransaksi', '$jumlahTransaksi', '$total')";
 }
 
 //function insert detail transaksi ke database
 function tambahDetailTransaksi($idTransaksi, $kodeBarang, $jmlBeli)
 {
-  return "INSERT INTO detail_transaksi(id_transaksi, kode_barang, jml_beli)";
+  return "INSERT INTO detail_transaksi(id_transaksi, kode_barang, jml_beli) VALUES ('$idTransaksi', '$kodeBarang', '$jmlBeli')";
 }
 
 //function query update stok barang
@@ -100,8 +100,15 @@ function updateStokBarang($kodeBarang, $stok) {
 function getDataTransaksi()
 {
   $db = dbConnect();
-  $sql = "SELECT * FROM pegawai NATURAL JOIN transaksi NATURAL JOIN detail_transaksi
-				 NATURAL JOIN barang ORDER BY id_transaksi";
+  $sql = 'SELECT pegawai.nama_pegawai as np, transaksi.tgl_transaksi as it, barang.nama_barang as nb, barang.harga as h, transaksi.jumlah_transaksi as jt, transaksi.total as t 
+FROM pegawai
+INNER JOIN 
+transaksi ON transaksi.id_pegawai = pegawai.id_pegawai
+INNER JOIN 
+detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi
+INNER JOIN 
+barang  ON detail_transaksi.kode_barang = barang.kode_barang
+ORDER BY transaksi.id_transaksi;';
   return $db->query($sql);
 }
 
@@ -114,7 +121,7 @@ function getDataTransaksiUpdate($id)
   return $db->query($sql);
 }
 
-//function update data barang ketika insert transaksi 
+//function update data barang ketika insert transaksi
 // function updateStokBarang($kodeBarang)
 // {
 //   return "UPDATE barang, detail_transaksi SET barang.stok = barang.stok - detail_transaksi.jml_beli
@@ -137,7 +144,7 @@ function getHapusTransaksi($id_transaksi)
 
   $sql = "DELETE transaksi.*, detail_transaksi.* FROM transaksi, detail_transaksi WHERE transaksi.id_transaksi = detail_transaksi.id_transaksi
 					  AND transaksi.id_transaksi = '$id_transaksi'";
-  return $delete = $db->query($sql);  
+  return $delete = $db->query($sql);
 
   if ($delete) {
     mysqli_close($db);
@@ -158,7 +165,7 @@ function nav($title)
   <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../style.css">
+<!--    <link rel="stylesheet" href="../../style.css">-->
 
     <script src="https://code.jquery.com/jquery.min.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

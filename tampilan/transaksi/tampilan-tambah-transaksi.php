@@ -31,6 +31,7 @@ require('../../functions.php');
                 <?php } ?>
             </select>
             Stok <span class="text_stok"></span>
+                <input name="stok-hide" id="stok-hide" value="<?= $row['stok'];  ?>" hidden readonly>
 
             </td>
             <td>
@@ -76,13 +77,16 @@ require('../../functions.php');
 </body>
 <script>
     $(document).ready(function () {
+        var stok;
         $("#btn-save").click(function(){
             doSave();
         })
-    
+
         $('#slc-menu').on('change', function() {
             var expl = $(this).val().split(",");
             $(".text_stok").text(expl[1]);
+
+            stok = expl[1];
         });
         window.arrayItem = [];
         var i = 0;
@@ -92,7 +96,7 @@ require('../../functions.php');
         var jumlah_total=0;
         var jumlah_total2=0;
         var jumlah_transaksi2=0;
-        
+
         $("#add-menu").click(function () {
             ++i;
             var id = $("select[name='slc_menu']").val().split(",");
@@ -100,6 +104,7 @@ require('../../functions.php');
 
             var jumlah = $("input[name='txt_jumlah']").val();
             var harga = $("select[name='slc_menu']").find(':selected').data('harga');
+
 
             var check = true;
             $.each(arrayItem, function (key, value) {
@@ -128,8 +133,18 @@ require('../../functions.php');
                 });
                 $("input[name='txt_jumlah']").focus();
                 return false;
+            } else if (stok <= jumlah) {
+                swal.fire({
+                    icon: "error",
+                    title: "Failed",
+                    text: "Data Jumlah melebihi data stok!",
+                    showConfirmButton: true,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Alright!",
+                });
+                $("input[name='txt_jumlah']").focus();
+                return false;
             }
-
             var append_id = "result_menu";
 
             $("#" + append_id).append('<tr id="item' + i + '"><td style="vertical-align:middle"><span>' + menu + '</span><input type="hidden" name="kode_barang[]" value="' + id[0] + '"></td><td class="text_transaksi" style="vertical-align:middle"<span>' + jumlah + '</span><input type="hidden" name="jumlah[]" value="' + jumlah + '"></td><td class="text_total" style="vertical-align:middle"<span>' + parseInt(harga)*parseInt(jumlah) + '</span></td><td align="center"><button type="button" class="btn btn-danger btn-xs" onclick="deleteItem(' + i + ',' + parseInt(harga)*parseInt(jumlah) +',' + jumlah +')"><i class="icon icon-trash"></i></button></td></tr>');

@@ -1,21 +1,21 @@
 <?php
 require('../../functions.php');
 
-nav("Tambah Transaksi");
+
 $db = dbConnect();
-    $transaksi = ($_POST['kode_barang']);
-    $harga = $db->escape_string($_POST['harga']);
-    $jumlah = ($_POST['jumlah']);
-    $jumlahTransaksi = $db->escape_string($_POST['jumlah_transaksi']);
-	$total = $db->escape_string($_POST['total_harga']);
-	$tanggalTransaksi=date('Y-m-d');
-	
+
+    $id_pegawai = "P001";
+    $transaksi = $_POST['kode_barang'];
+    $jumlah = $_POST['jumlah'];
+    $jumlahTransaksi = $_POST['jumlah_transaksi'];
+	$total = $_POST['total_harga'];
+    $tanggalTransaksi=date('Y-m-d');
+
+
 	$queryTransaksi = tambahTransaksi($id_pegawai, $tanggalTransaksi, $jumlahTransaksi, $total);
 
-    // $sql = tambahDetailTransaksi($kodeBarang,$jumlahBarang,$total);
-    // $res = $db->query($sql);
-	
 	if(mysqli_query($db, $queryTransaksi)){
+
         if($db->affected_rows > 0) {
             $query = "SELECT id_transaksi FROM transaksi ORDER BY tgl_transaksi DESC";
             $data = mysqli_query($db, $query);
@@ -34,7 +34,7 @@ $db = dbConnect();
                 $kodeBarang = $data['kode_barang'];
                 $jml = $data['jml_beli'];
 
-                $queryTransaksi = tambahDetailTransaksi($idTransaksi, $kodeBarang, $jmlBeli);
+                $queryTransaksi = tambahDetailTransaksi($idTransaksi, $kodeBarang, $jml);
                 $queryUpdateStokBarang = updateStokBarang($kodeBarang, $jml);
                 mysqli_query($db, $queryTransaksi);
                 mysqli_query($db, $queryUpdateStokBarang);
@@ -44,7 +44,6 @@ $db = dbConnect();
             }else{
                 echo 0;
             }
-
         }else{
             echo 0;
         }

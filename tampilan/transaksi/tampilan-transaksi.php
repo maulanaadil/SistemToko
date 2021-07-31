@@ -17,29 +17,31 @@ $data = getDataTransaksi()->fetch_all(MYSQLI_ASSOC);
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped mt-4">
-                <tr class="bg-dark text-white" align="center">
-                    <td width="20%">Nama Kasir</td>
-					<td>Id Transaksi</td>
-                    <td>Nama Barang</td>
-                    <td>Harga</td>
-                    <td>Jumlah</td>
-					<td>Total</td>
-                    <td width="20%">Aksi</td>
-                </tr>
+                <thead align="center">
+                    <th width="20%">Nama Kasir</th>
+                    <th>Tanggal</th>
+                    <th>Nama Barang</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Total</th>
+                    <th width="20%">Aksi</th>
+                </thead>
+                <tbody>
                 <?php foreach ($data as $row) : ?>
                     <tr>
-                        <td><?= $row['nama_pegawai']; ?></td>
-						<td><?= $row['id_transaksi']; ?></td>
-                        <td><?= $row['nama_barang']; ?></td>
-                        <td><?= $row['harga']; ?></td>
-                        <td><?= $row['jml_beli']; ?></td>
-						<td><?= $row['total']; ?></td>
+                        <td><?= $row['np']; ?></td>
+                        <td><?= $row['it']; ?></td>
+                        <td><?= $row['nb']; ?></td>
+                        <td><?= $row['h']; ?></td>
+                        <td><?= $row['jt']; ?></td>
+                        <td><?= $row['t']; ?></td>
                         <td align="center">
-                            <a href="tampilan-ubah-transaksi.php?id_transaksi=<?= $row['id_transaksi']; ?>" class="btn btn-primary">Ubah</a>
-                            <a href="hapus-transaksi.php?id_transaksi=<?= $row['id_transaksi']; ?>" class="btn btn-danger">Hapus</a>
+                            <a href="tampilan-ubah-transaksi.php?id_transaksi=<?= $row['it']; ?>" class="btn btn-primary">Ubah</a>
+                            <a href="hapus-transaksi.php?id_transaksi=<?= $row['it']; ?>" class="btn btn-danger">Hapus</a>
                         </td>
                     </tr>
                 <?php endforeach ?>
+                </tbody>
             </table>
         </div>
     </div>
