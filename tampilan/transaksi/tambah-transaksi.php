@@ -1,10 +1,8 @@
 <?php
-session_start();
 require('../../functions.php');
 
 nav("Tambah Transaksi");
 $db = dbConnect();
-if(isset($_POST['tblSimpan'])) {
     $transaksi = ($_POST['kode_barang']);
     $harga = $db->escape_string($_POST['harga']);
     $jumlah = ($_POST['jumlah']);
@@ -53,6 +51,5 @@ if(isset($_POST['tblSimpan'])) {
     }else{
         echo 0;
     }
-}else {
-    echo 0;
-}
+
+

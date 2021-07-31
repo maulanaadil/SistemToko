@@ -101,8 +101,51 @@ function getDataTransaksi()
 {
   $db = dbConnect();
   $sql = "SELECT * FROM pegawai NATURAL JOIN transaksi NATURAL JOIN detail_transaksi
-				 NATURAL JOIN barang";
+				 NATURAL JOIN barang ORDER BY id_transaksi";
   return $db->query($sql);
+}
+
+//function untuk ambil data data transaksi dan update
+function getDataTransaksiUpdate($id)
+{
+  $db = dbConnect();
+  $sql = "SELECT * FROM pegawai NATURAL JOIN transaksi NATURAL JOIN detail_transaksi
+				 NATURAL JOIN barang WHERE id_transaksi='$id'";
+  return $db->query($sql);
+}
+
+//function update data barang ketika insert transaksi 
+// function updateStokBarang($kodeBarang)
+// {
+//   return "UPDATE barang, detail_transaksi SET barang.stok = barang.stok - detail_transaksi.jml_beli
+// 				 WHERE barang.kode_barang = detail_transaksi.kode_barang and detail_transaksi.kode_barang='$kodeBarang'";
+// }
+
+//function update ubah barang
+function updateUbahBarang($kode_barang, $jumlah, $updateTotal, $updateStok, $id_transaksi)
+{
+  return "UPDATE detail_transaksi, barang SET detail_transaksi.kode_barang='$kode_barang',
+				  detail_transaksi.jml_beli='$jumlah', detail_transaksi.total='$updateTotal', 
+				  barang.stok='$updateStok' WHERE detail_transaksi.kode_barang=barang.kode_barang
+				  AND detail_transaksi.id_transaksi='$id_transaksi'";
+}
+
+//function hapus transaksi
+function getHapusTransaksi($id_transaksi)
+{
+  $db = dbConnect();
+
+  $sql = "DELETE transaksi.*, detail_transaksi.* FROM transaksi, detail_transaksi WHERE transaksi.id_transaksi = detail_transaksi.id_transaksi
+					  AND transaksi.id_transaksi = '$id_transaksi'";
+  return $delete = $db->query($sql);  
+
+  if ($delete) {
+    mysqli_close($db);
+	header("location: tampilan-barang.php");
+    exit;
+  } else {
+    echo "Penghapusan Transaksi Gagal";
+  }
 }
 
 
